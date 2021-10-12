@@ -49,27 +49,34 @@ extension MovieDetailViewModel {
         case onFailedToLoad(Error)
     }
     
-    struct MovieDetailDTO: Codable {
+    struct MovieDetail {
         let id: Int
         let title: String
         let overview: String?
-        let poster_path: String?
-        let vote_average: Double?
-//        let genres: [GenreDTO]
-        let release_date: String?
-        let runtime: Int?
-//        let spoken_languages: [LanguageDTO]
-    }
-    
-    struct MovieDetail: Identifiable {
-        let id: Int
-        let title: String
-        let overview: String?
+        let poster: URL?
+        let rating: Double?
+        let duration: String
+        let genres: [String]
+        let releasedAt: String
+        let language: String
         
         init(movie: MovieDetailDTO) {
             id = movie.id
             title = movie.title
             overview = movie.overview
+            poster = movie.poster
+            rating = movie.vote_average
+            
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .abbreviated
+            formatter.allowedUnits = [.minute, .hour]
+            duration = movie.runtime.flatMap { formatter.string(from: TimeInterval($0 * 60)) } ?? "N/A"
+            
+            genres = movie.genres.map(\.name)
+            
+            releasedAt = movie.release_date ?? "N/A"
+            
+            language = movie.spoken_languages.first?.name ?? "N/A"
         }
     }
 }

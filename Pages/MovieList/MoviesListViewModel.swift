@@ -74,30 +74,6 @@ extension MoviesListViewModel {
     }
 }
 
-enum MoviesAPI {
-    static func trending() -> AnyPublisher<PageDTO<MovieDTO>, Error> {
-        let request = URLComponents(url: base.appendingPathComponent("trending/movie/week"), resolvingAgainstBaseURL: true)?
-            .addingApiKey(apiKey)
-            .request
-        return agent.run(request!)
-    }
-    
-    static func movieDetail(id: Int) -> AnyPublisher<MovieDetailDTO, Error> {
-        let request = URLComponents(url: base.appendingPathComponent("movie/\(id)"), resolvingAgainstBaseURL: true)?
-            .addingApiKey(apiKey)
-            .request
-        return agent.run(request!)
-    }
-}
-
-struct MovieDTO: Codable {
-    let id: Int
-    let title: String
-    let poster_path: String?
-    
-    var poster: URL?
-}
-
 extension MoviesListViewModel {
     static func reduce(_ state: State, _ event: Event) -> State {
         switch state {

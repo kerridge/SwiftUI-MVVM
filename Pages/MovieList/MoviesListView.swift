@@ -34,3 +34,44 @@ struct MoviesListView: View {
         }
     }
 }
+
+struct MovieListItemView: View {
+    let movie: MoviesListViewModel.ListItem
+    @Environment(\.imageCache) var cache: ImageCache
+
+    var body: some View {
+        VStack {
+            title
+            poster
+        }
+    }
+    
+    private var title: some View {
+        Text(movie.title)
+            .font(.title)
+            .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+    }
+    
+    @ViewBuilder
+    private var poster: some View {
+        if #available(iOS 15.0, *) {
+            movie.poster.map { url in
+                AsyncImage(
+                    url: url,
+                    content: { image in
+                        image.resizable()
+                    },
+                    placeholder: {
+                        spinner
+                    }
+                )
+            }
+            .aspectRatio(contentMode: .fit)
+            .frame(idealHeight: UIScreen.main.bounds.width / 2 * 3) // 2:3 aspect ratio
+        }
+    }
+    
+    private var spinner: some View {
+        Spinner(isAnimating: true, style: .medium)
+    }
+}

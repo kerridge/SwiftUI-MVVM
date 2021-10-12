@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_MVVMApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MoviesListView(viewModel: MoviesListViewModel())
         }
     }
 }
