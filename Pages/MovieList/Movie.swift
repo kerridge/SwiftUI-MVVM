@@ -12,5 +12,5 @@ struct MovieDTO: Codable {
     let title: String
     let poster_path: String?
     
-    var poster: URL?
+    var poster: URL? { poster_path.map { MoviesAPI.imageBase.appendingPathComponent($0) } }
 }

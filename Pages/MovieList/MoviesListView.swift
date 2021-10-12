@@ -37,7 +37,7 @@ struct MoviesListView: View {
 
 struct MovieListItemView: View {
     let movie: MoviesListViewModel.ListItem
-    @Environment(\.imageCache) var cache: ImageCache
+//    @Environment(\.imageCache) var cache: ImageCache
 
     var body: some View {
         VStack {
@@ -59,15 +59,15 @@ struct MovieListItemView: View {
                 AsyncImage(
                     url: url,
                     content: { image in
-                        image.resizable()
+                        image.resizable().renderingMode(.original)
                     },
                     placeholder: {
-                        spinner
+                        self.spinner
                     }
                 )
+                .aspectRatio(contentMode: .fit)
+                .frame(idealHeight: UIScreen.main.bounds.width / 2 * 3) // 2:3 aspect ratio
             }
-            .aspectRatio(contentMode: .fit)
-            .frame(idealHeight: UIScreen.main.bounds.width / 2 * 3) // 2:3 aspect ratio
         }
     }
     

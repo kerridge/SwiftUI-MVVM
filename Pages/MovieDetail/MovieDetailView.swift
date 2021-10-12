@@ -76,15 +76,15 @@ struct MovieDetailView: View {
     private func poster(of movie: MovieDetailViewModel.MovieDetail) -> some View {
         if #available(iOS 15.0, *) {
             movie.poster.map { url in
-                    AsyncImage(
-                        url: url,
-                        content: { image in
-                            image.resizable()
-                        },
-                        placeholder: {
-                            self.spinner
-                        }
-                    ).aspectRatio(contentMode: .fit)
+                AsyncImage(
+                    url: url,
+                    content: { image in
+                        image.resizable()
+                    },
+                    placeholder: {
+                        self.spinner
+                    }
+                ).aspectRatio(contentMode: .fit)
             }
         }
     }
