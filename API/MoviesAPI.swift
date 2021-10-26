@@ -26,6 +26,17 @@ enum MoviesAPI {
         return agent.run(request!)
     }
     
+    static func latest() -> AnyPublisher<PageDTO<MovieDTO>, Error> {
+        let request = URLComponents(
+            url: base.appendingPathComponent("movie/latest"),
+            resolvingAgainstBaseURL: true
+        )?
+        .addingApiKey(apiKey)
+        .request
+
+        return agent.run(request!)
+    }
+    
     static func movieDetail(id: Int) -> AnyPublisher<MovieDetailDTO, Error> {
         let request = URLComponents(
             url: base.appendingPathComponent("movie/\(id)"),

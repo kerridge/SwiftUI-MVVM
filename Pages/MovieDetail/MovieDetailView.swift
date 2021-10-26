@@ -48,7 +48,7 @@ struct MovieDetailView: View {
                 .font(.subheadline)
                 
                 poster(of: movie)
-                                
+                
                 genres(of: movie)
                 
                 Divider()
